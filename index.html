@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>CodeAtlas AI — Codebase Understanding & Architecture Platform</title>
+    <meta name="description" content="An AI-powered codebase understanding and interactive architecture exploration platform for GitHub repositories." />
+    <meta property="og:title" content="CodeAtlas AI — Codebase Understanding & Architecture Platform" />
+    <meta property="og:description" content="An AI-powered codebase understanding and interactive architecture exploration platform for GitHub repositories." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CodeAtlas" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('codeatlas_theme') || 'system';
+          var isDark = saved === 'dark' || (saved === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+
+        // Intercept console.error to filter out harmless Vite HMR WebSocket error in AI Studio preview
+        var origConsoleError = console.error;
+        console.error = function() {
+          var args = Array.prototype.slice.call(arguments);
+          var isViteWsError = args.some(function(arg) {
+            var str = String(arg && (arg.message || arg.stack || arg) || '');
+            return str.includes('WebSocket closed without opened') || (str.includes('[vite]') && str.includes('WebSocket'));
+          });
+          if (isViteWsError) {
+            return;
+          }
+          return origConsoleError.apply(console, arguments);
+        };
+
+        // Intercept WebSocket for vite-hmr to prevent failed connection attempt
+        if (typeof window !== 'undefined' && window.WebSocket) {
+          var RealWebSocket = window.WebSocket;
+          function PatchedWebSocket(url, protocols) {
+            if (protocols === 'vite-hmr' || (typeof url === 'string' && url.includes('vite'))) {
+              var listeners = {};
+              var ws = {
+                readyState: 1,
+                CONNECTING: 0,
+                OPEN: 1,
+                CLOSING: 2,
+                CLOSED: 3,
+                url: url,
+                protocol: protocols || '',
+                addEventListener: function(type, cb) {
+                  if (!listeners[type]) listeners[type] = [];
+                  listeners[type].push(cb);
+                  if (type === 'open') {
+                    setTimeout(function() {
+                      cb({ type: 'open' });
+                    }, 0);
+                  }
+                },
+                removeEventListener: function(type, cb) {
+                  if (listeners[type]) {
+                    listeners[type] = listeners[type].filter(function(fn) { return fn !== cb; });
+                  }
+                },
+                dispatchEvent: function() { return true; },
+                send: function() {},
+                close: function() {
+                  ws.readyState = 3;
+                }
+              };
+              return ws;
+            }
+            return new RealWebSocket(url, protocols);
+          }
+          PatchedWebSocket.prototype = RealWebSocket.prototype;
+          PatchedWebSocket.CONNECTING = 0;
+          PatchedWebSocket.OPEN = 1;
+          PatchedWebSocket.CLOSING = 2;
+          PatchedWebSocket.CLOSED = 3;
+          window.WebSocket = PatchedWebSocket;
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 dark:bg-[#090D16] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-100 dark:selection:bg-indigo-950 selection:text-indigo-900 dark:selection:text-indigo-200 min-h-screen transition-colors duration-150">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
