@@ -58,6 +58,9 @@ export const Navbar: React.FC<NavbarProps> = ({
       const result = await getAvailableModels();
       if (result.models && result.models.length > 0) {
         setAvailableModels(result.models);
+        if (!result.models.some(m => m.id === geminiModel)) {
+          setGeminiModel(result.defaultModel || 'gemini-3.8-flash');
+        }
       }
     } finally {
       setIsLoadingModels(false);
@@ -68,24 +71,36 @@ export const Navbar: React.FC<NavbarProps> = ({
     fetchModelsFromApi();
   }, []);
 
+  const tokenVerifiedModels = useMemo(
+    () =>
+      availableModels.filter(
+        m =>
+          typeof m.inputTokenLimit === 'number' &&
+          m.inputTokenLimit > 0 &&
+          typeof m.outputTokenLimit === 'number' &&
+          m.outputTokenLimit > 100
+      ),
+    [availableModels]
+  );
+
   // Group models by category for both <optgroup> and interactive browser
   const groupedModels = useMemo(() => {
     const groups = new Map<string, GeminiModelOption[]>();
-    for (const model of availableModels) {
-      const cat = model.category || 'Additional API Models';
+    for (const model of tokenVerifiedModels) {
+      const cat = model.category || 'Gemini API Models';
       if (!groups.has(cat)) {
         groups.set(cat, []);
       }
       groups.get(cat)!.push(model);
     }
     return groups;
-  }, [availableModels]);
+  }, [tokenVerifiedModels]);
 
   const categories = useMemo(() => ['ALL', ...Array.from(groupedModels.keys())], [groupedModels]);
 
   const filteredModels = useMemo(() => {
     const q = modelSearchQuery.trim().toLowerCase();
-    return availableModels.filter(m => {
+    return tokenVerifiedModels.filter(m => {
       const matchesCategory =
         selectedCategoryFilter === 'ALL' || m.category === selectedCategoryFilter;
       if (!matchesCategory) return false;
@@ -97,11 +112,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         m.category.toLowerCase().includes(q)
       );
     });
-  }, [availableModels, modelSearchQuery, selectedCategoryFilter]);
+  }, [tokenVerifiedModels, modelSearchQuery, selectedCategoryFilter]);
 
   const selectedModelDetails = useMemo(
-    () => availableModels.find(m => m.id === geminiModel),
-    [availableModels, geminiModel]
+    () => tokenVerifiedModels.find(m => m.id === geminiModel) || tokenVerifiedModels[0],
+    [tokenVerifiedModels, geminiModel]
   );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -337,7 +352,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       Gemini API Model Selector
                     </label>
                     <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/70 dark:border-indigo-800/60">
-                      {availableModels.length} models available
+                      {tokenVerifiedModels.length} models with tokens
                     </span>
                   </div>
 
@@ -364,7 +379,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <optgroup key={category} label={category}>
                       {modelsInCategory.map(model => (
                         <option key={model.id} value={model.id}>
-                          {model.id} — {model.displayName}
+                          {model.id} — {model.displayName} (
+                          {formatTokenCount(model.inputTokenLimit)} in /{' '}
+                          {formatTokenCount(model.outputTokenLimit)} out)
                           {model.isRecommended ? ' ★ Recommended' : ''}
                         </option>
                       ))}
@@ -432,7 +449,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         type="text"
                         value={modelSearchQuery}
                         onChange={e => setModelSearchQuery(e.target.value)}
-                        placeholder="Filter all API models by ID, capability, or series..."
+                        placeholder="Filter API models by ID, capability, or series..."
                         className="w-full pl-8 pr-2.5 py-1 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-md focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 placeholder-slate-400"
                       />
                     </div>
@@ -483,11 +500,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                                   Recommended
                                 </span>
                               )}
-                              {model.source === 'api' && (
-                                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300">
-                                  Live API
-                                </span>
-                              )}
+                              <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300">
+                                {formatTokenCount(model.inputTokenLimit)} in /{' '}
+                                {formatTokenCount(model.outputTokenLimit)} out
+                              </span>
                             </div>
                             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                               {model.description}

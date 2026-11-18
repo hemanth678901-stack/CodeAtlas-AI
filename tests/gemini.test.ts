@@ -49,7 +49,7 @@ describe('Gemini Model Name Sanitization', () => {
 });
 
 describe('GeminiService Architecture and Fallback Engine', () => {
-  it('initializes with a sanitized default model and lists all available API models', async () => {
+  it('initializes with a sanitized default model and lists only API-available models with tokens', async () => {
     const service = new GeminiService();
     expect(service.getModel()).toMatch(/^(gemini|lyria)-[a-z0-9\.\-]+$/i);
     const models = await service.listAvailableModels();
@@ -60,7 +60,12 @@ describe('GeminiService Architecture and Fallback Engine', () => {
     expect(ids).toContain('gemini-4-carbon');
     expect(ids).toContain('gemini-3.8-flash');
     expect(ids).toContain('gemini-3.1-flash-lite');
-    expect(ids).toContain('gemini-embedding-2');
+    expect(ids).not.toContain('gemini-3-pro-preview');
+    expect(ids).not.toContain('gemini-embedding-2');
+    for (const model of models) {
+      expect(model.inputTokenLimit).toBeGreaterThan(0);
+      expect(model.outputTokenLimit).toBeGreaterThan(100);
+    }
   });
 
   it('generates rich fallback analysis without crashing when AI client is inactive', async () => {

@@ -25,7 +25,7 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'High-speed flagship multimodal model for general text, code, and structured synthesis.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'batchGenerateContent'],
     isRecommended: true,
     source: 'catalog',
   },
@@ -35,8 +35,8 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     category: 'Gemini 4 Series (Flagship)',
     description: 'Advanced coding, software architecture synthesis, math, and complex STEM reasoning.',
     inputTokenLimit: 1048576,
-    outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    outputTokenLimit: 32768,
+    supportedActions: ['generateContent', 'countTokens', 'batchGenerateContent'],
     isRecommended: true,
     source: 'catalog',
   },
@@ -46,8 +46,8 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     category: 'Gemini 4 Series (Flagship)',
     description: 'Maximum reasoning depth for root-cause debugging, architectural design, and security auditing.',
     inputTokenLimit: 1048576,
-    outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    outputTokenLimit: 32768,
+    supportedActions: ['generateContent', 'countTokens', 'batchGenerateContent'],
     source: 'catalog',
   },
 
@@ -59,18 +59,48 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Default high-speed model optimized for repository architecture analysis and low-latency Q&A.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     isRecommended: true,
     source: 'catalog',
   },
   {
-    id: 'gemini-3.1-flash-lite',
-    displayName: 'Gemini 3.1 Flash Lite',
+    id: 'gemini-3.7-flash',
+    displayName: 'Gemini 3.7 Flash',
     category: 'Gemini 3 Series (Text & Code)',
-    description: 'Ultra-fast, lightweight model ideal for rapid repository scanning and high-throughput queries.',
+    description: 'High-throughput Flash model for fast code comprehension and structured JSON output.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
+    source: 'catalog',
+  },
+  {
+    id: 'gemini-3.6-flash',
+    displayName: 'Gemini 3.6 Flash',
+    category: 'Gemini 3 Series (Text & Code)',
+    description: 'Fast text and code generation model with 1M context window.',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 65536,
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
+    source: 'catalog',
+  },
+  {
+    id: 'gemini-3.5-flash',
+    displayName: 'Gemini 3.5 Flash',
+    category: 'Gemini 3 Series (Text & Code)',
+    description: 'Balanced speed and accuracy for multi-file repository analysis.',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 65536,
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
+    source: 'catalog',
+  },
+  {
+    id: 'gemini-3.5-flash-lite',
+    displayName: 'Gemini 3.5 Flash Lite',
+    category: 'Gemini 3 Series (Text & Code)',
+    description: 'Lightweight low-latency model for rapid codebase summaries.',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 65536,
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -80,17 +110,17 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Pro-grade reasoning model for deep codebase inspection and multi-file dependency synthesis.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
-    id: 'gemini-3-pro-preview',
-    displayName: 'Gemini 3 Pro Preview',
+    id: 'gemini-3.1-flash-lite',
+    displayName: 'Gemini 3.1 Flash Lite',
     category: 'Gemini 3 Series (Text & Code)',
-    description: 'High-precision reasoning model for complex software engineering and architectural tasks.',
+    description: 'Ultra-fast, lightweight model ideal for rapid repository scanning and high-throughput queries.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -100,7 +130,7 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Fast multimodal and code comprehension model with low latency.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
 
@@ -112,7 +142,7 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Long-context reasoning model for large multi-module codebases and technical documentation.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -122,7 +152,7 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Balanced speed and structured JSON generation for repository analysis.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -132,128 +162,46 @@ export const AVAILABLE_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Cost-efficient lightweight model for fast text and code summarization.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
-    source: 'catalog',
-  },
-
-  // Live, Audio & Speech Models
-  {
-    id: 'gemini-3.8-live',
-    displayName: 'Gemini 3.8 Live',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time low-latency audio and video conversation model via the Gemini Live API.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.8-live-extended-thinking',
-    displayName: 'Gemini 3.8 Live Extended Thinking',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time voice conversation model with extended reasoning and multi-step tool use.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.5-transcribe',
-    displayName: 'Gemini 3.5 Transcribe',
-    category: 'Live, Audio & Speech Models',
-    description: 'Dedicated audio transcription model for pre-recorded or static audio.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.5-transcribe-live',
-    displayName: 'Gemini 3.5 Transcribe Live',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time streaming speech-to-text transcription via the Live API.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.5-live-translate-preview',
-    displayName: 'Gemini 3.5 Live Translate Preview',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time bidirectional speech-to-speech translation model.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.8-flash-lite-tts',
-    displayName: 'Gemini 3.8 Flash Lite TTS',
-    category: 'Live, Audio & Speech Models',
-    description: 'High-throughput single-speaker text-to-speech generation model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.8-flash-tts',
-    displayName: 'Gemini 3.8 Flash TTS',
-    category: 'Live, Audio & Speech Models',
-    description: 'Expressive multi-speaker text-to-speech and custom voice design model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-
-  // Multimodal, Image, Video & Music Models
-  {
-    id: 'gemini-omni-1.2-flash',
-    displayName: 'Gemini Omni 1.2 Flash',
-    category: 'Image, Video & Music Models',
-    description: 'Omni multimodal model for video generation, editing, and extension via Interactions API.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.1-flash-lite-image',
-    displayName: 'Gemini 3.1 Flash Lite Image (Nano Banana)',
-    category: 'Image, Video & Music Models',
-    description: 'Fast image generation and editing model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-nano-banana-2.1',
-    displayName: 'Gemini Nano Banana 2.1',
-    category: 'Image, Video & Music Models',
-    description: 'High-resolution image generation and editing model (1K, 2K, 4K).',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3-pro-image',
-    displayName: 'Gemini 3 Pro Image (Nano Banana Pro)',
-    category: 'Image, Video & Music Models',
-    description: 'Professional-grade image generation and visual synthesis model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'lyria-3-clip-preview',
-    displayName: 'Lyria 3 Clip Preview',
-    category: 'Image, Video & Music Models',
-    description: 'Short 30-second music clip generation model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'lyria-3-pro-preview',
-    displayName: 'Lyria 3 Pro Preview',
-    category: 'Image, Video & Music Models',
-    description: 'Full-length studio music composition and generation model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-
-  // Embeddings Models
-  {
-    id: 'gemini-embedding-2',
-    displayName: 'Gemini Embedding 2',
-    category: 'Embedding Models',
-    description: 'High-dimensional text, code, and multimodal embedding model for semantic retrieval.',
-    supportedActions: ['embedContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
 ];
+
+const NON_TEXT_OR_UNSUPPORTED_MODEL_PATTERNS = [
+  /live/i,
+  /tts/i,
+  /transcribe/i,
+  /image/i,
+  /banana/i,
+  /lyria/i,
+  /omni/i,
+  /embedding/i,
+  /decision/i,
+  /robotics/i,
+  /computer-use/i,
+  /native-audio/i,
+  /audio/i,
+  /veo/i,
+  /imagen/i,
+  /customtools/i,
+];
+
+export function hasAvailableTokensAndTextSupport(model: {
+  id: string;
+  inputTokenLimit?: number;
+  outputTokenLimit?: number;
+  supportedActions?: string[];
+}): boolean {
+  if (!model.id || isDeprecatedModel(model.id)) return false;
+  if (!/^gemini-[a-z0-9\.\-]+$/i.test(model.id)) return false;
+  if (NON_TEXT_OR_UNSUPPORTED_MODEL_PATTERNS.some(rx => rx.test(model.id))) return false;
+  if (typeof model.inputTokenLimit !== 'number' || model.inputTokenLimit <= 0) return false;
+  if (typeof model.outputTokenLimit !== 'number' || model.outputTokenLimit <= 100) return false;
+  if (Array.isArray(model.supportedActions) && model.supportedActions.length > 0) {
+    if (!model.supportedActions.includes('generateContent')) return false;
+  }
+  return true;
+}
 
 const DEPRECATED_MODEL_PATTERNS = [
   /^gemini-1\.0/i,
@@ -328,46 +276,47 @@ export class GeminiService {
   }
 
   public async listAvailableModels(apiKeyOverride?: string): Promise<GeminiModelOption[]> {
-    const modelMap = new Map<string, GeminiModelOption>();
+    const catalogMap = new Map<string, GeminiModelOption>();
     for (const item of AVAILABLE_GEMINI_MODELS) {
-      modelMap.set(item.id, { ...item });
+      if (hasAvailableTokensAndTextSupport(item)) {
+        catalogMap.set(item.id, { ...item });
+      }
     }
 
     const client = this.getClient(apiKeyOverride);
     if (!client) {
-      return Array.from(modelMap.values());
+      return Array.from(catalogMap.values());
     }
 
     try {
       const pager = await client.models.list({ config: { pageSize: 100 } });
+      const liveModelsMap = new Map<string, GeminiModelOption>();
       const categorizeId = (id: string): string => {
         if (id.startsWith('gemini-4')) return 'Gemini 4 Series (Flagship)';
-        if (id.startsWith('gemini-3')) {
-          if (id.includes('live') || id.includes('tts') || id.includes('transcribe')) {
-            return 'Live, Audio & Speech Models';
-          }
-          if (id.includes('image') || id.includes('banana')) {
-            return 'Image, Video & Music Models';
-          }
-          return 'Gemini 3 Series (Text & Code)';
-        }
+        if (id.startsWith('gemini-3')) return 'Gemini 3 Series (Text & Code)';
         if (id.startsWith('gemini-2.5')) return 'Gemini 2.5 Series';
-        if (id.includes('embedding')) return 'Embedding Models';
-        if (id.includes('lyria') || id.includes('omni') || id.includes('image') || id.includes('veo') || id.includes('imagen')) {
-          return 'Image, Video & Music Models';
-        }
-        return 'Additional API Models';
+        return 'Gemini API Models';
       };
 
       for await (const rawModel of pager) {
         const rawName = rawModel?.name || '';
         const id = rawName.replace(/^models\//, '').trim();
-        if (!id || isDeprecatedModel(id)) continue;
-        if (!/^(gemini|lyria)-[a-z0-9\.\-]+$/i.test(id)) continue;
+        const candidate = {
+          id,
+          inputTokenLimit: rawModel.inputTokenLimit,
+          outputTokenLimit: rawModel.outputTokenLimit,
+          supportedActions: rawModel.supportedActions,
+        };
 
-        const existing = modelMap.get(id);
+        // Strictly include only models returned by the API that support text/code generation and have available token limits
+        if (!hasAvailableTokensAndTextSupport(candidate)) continue;
+        if (Array.isArray(rawModel.supportedActions) && !rawModel.supportedActions.includes('countTokens')) {
+          continue;
+        }
+
+        const existing = catalogMap.get(id);
         if (existing) {
-          modelMap.set(id, {
+          liveModelsMap.set(id, {
             ...existing,
             displayName: rawModel.displayName || existing.displayName,
             description: rawModel.description || existing.description,
@@ -379,7 +328,7 @@ export class GeminiService {
             source: 'api',
           });
         } else {
-          modelMap.set(id, {
+          liveModelsMap.set(id, {
             id,
             displayName: rawModel.displayName || id,
             category: categorizeId(id),
@@ -391,11 +340,27 @@ export class GeminiService {
           });
         }
       }
+
+      if (liveModelsMap.size > 0) {
+        // Order curated models first (if confirmed live in API), followed by additional live API models
+        const ordered: GeminiModelOption[] = [];
+        for (const item of AVAILABLE_GEMINI_MODELS) {
+          const live = liveModelsMap.get(item.id);
+          if (live) {
+            ordered.push(live);
+            liveModelsMap.delete(item.id);
+          }
+        }
+        for (const remaining of liveModelsMap.values()) {
+          ordered.push(remaining);
+        }
+        return ordered;
+      }
     } catch (err) {
-      console.warn('[GeminiService] Could not fetch dynamic model list from API, returning full catalog:', err);
+      console.warn('[GeminiService] Could not fetch dynamic model list from API, returning verified token models:', err);
     }
 
-    return Array.from(modelMap.values());
+    return Array.from(catalogMap.values());
   }
 
   private getClient(apiKeyOverride?: string): GoogleGenAI | undefined {
@@ -489,7 +454,8 @@ Input files:
 ${filesSummary}
 
 Requirements for JSON output:
-1. "fileExplanations": An object keyed by file path. For each file, provide:
+1. "fileExplanationsList": An array of file explanation objects (one for each analyzed file). Each item must have:
+   - "path": Exact file path from the input.
    - "purpose": A concise, accurate description (1-2 sentences) of what this file does.
    - "responsibilities": 2 to 4 concrete, actionable responsibilities verified by code inspection.
    - "keyFunctions": Array of { "name": string, "purpose": string }.
@@ -522,141 +488,267 @@ Strict instructions:
 - Ensure all Mermaid diagrams are syntax-error free.
 - Output valid JSON strictly conforming to the requested schema.`;
 
-      const response = await this.executeGenerateContent(client, targetModel, {
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              fileExplanations: {
-                type: Type.OBJECT,
-                description: 'Map of file paths to explanation details',
-              },
-              mindMap: {
-                type: Type.OBJECT,
-                properties: {
-                  nodes: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        id: { type: Type.STRING },
-                        label: { type: Type.STRING },
-                        type: { type: Type.STRING },
-                        path: { type: Type.STRING },
-                        role: { type: Type.STRING },
-                        description: { type: Type.STRING },
-                      },
-                      required: ['id', 'label', 'type'],
+      const responseSchema = {
+        type: Type.OBJECT,
+        properties: {
+          fileExplanationsList: {
+            type: Type.ARRAY,
+            description: 'List of per-file architectural explanations',
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                path: { type: Type.STRING },
+                purpose: { type: Type.STRING },
+                responsibilities: {
+                  type: Type.ARRAY,
+                  items: { type: Type.STRING },
+                },
+                keyFunctions: {
+                  type: Type.ARRAY,
+                  items: {
+                    type: Type.OBJECT,
+                    properties: {
+                      name: { type: Type.STRING },
+                      purpose: { type: Type.STRING },
                     },
-                  },
-                  edges: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        id: { type: Type.STRING },
-                        source: { type: Type.STRING },
-                        target: { type: Type.STRING },
-                        relation: { type: Type.STRING },
-                        label: { type: Type.STRING },
-                      },
-                      required: ['id', 'source', 'target', 'relation'],
-                    },
+                    required: ['name', 'purpose'],
                   },
                 },
-                required: ['nodes', 'edges'],
+                inputOutput: {
+                  type: Type.OBJECT,
+                  properties: {
+                    input: { type: Type.STRING },
+                    output: { type: Type.STRING },
+                  },
+                  required: ['input', 'output'],
+                },
               },
-              executionFlows: {
+              required: ['path', 'purpose', 'responsibilities'],
+            },
+          },
+          mindMap: {
+            type: Type.OBJECT,
+            properties: {
+              nodes: {
                 type: Type.ARRAY,
                 items: {
                   type: Type.OBJECT,
                   properties: {
                     id: { type: Type.STRING },
-                    title: { type: Type.STRING },
+                    label: { type: Type.STRING },
+                    type: { type: Type.STRING },
+                    path: { type: Type.STRING },
+                    role: { type: Type.STRING },
                     description: { type: Type.STRING },
-                    mermaidSyntax: { type: Type.STRING },
-                    isPartialOrInferred: { type: Type.BOOLEAN },
-                    steps: {
-                      type: Type.ARRAY,
-                      items: {
-                        type: Type.OBJECT,
-                        properties: {
-                          step: { type: Type.INTEGER },
-                          actor: { type: Type.STRING },
-                          action: { type: Type.STRING },
-                          target: { type: Type.STRING },
-                          fileReference: { type: Type.STRING },
-                        },
-                        required: ['step', 'actor', 'action', 'target'],
-                      },
-                    },
                   },
-                  required: ['id', 'title', 'description', 'mermaidSyntax', 'isPartialOrInferred', 'steps'],
+                  required: ['id', 'label', 'type'],
                 },
               },
-              architectureSummary: {
-                type: Type.OBJECT,
-                properties: {
-                  overview: { type: Type.STRING },
-                  keyPatterns: { type: Type.ARRAY, items: { type: Type.STRING } },
-                  mermaidArchitecture: { type: Type.STRING },
-                  layerBreakdown: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        layer: { type: Type.STRING },
-                        description: { type: Type.STRING },
-                        files: { type: Type.ARRAY, items: { type: Type.STRING } },
-                      },
-                      required: ['layer', 'description', 'files'],
-                    },
+              edges: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    id: { type: Type.STRING },
+                    source: { type: Type.STRING },
+                    target: { type: Type.STRING },
+                    relation: { type: Type.STRING },
+                    label: { type: Type.STRING },
                   },
+                  required: ['id', 'source', 'target', 'relation'],
                 },
-                required: ['overview', 'keyPatterns', 'mermaidArchitecture'],
               },
             },
-            required: ['fileExplanations', 'mindMap', 'executionFlows', 'architectureSummary'],
+            required: ['nodes', 'edges'],
           },
+          executionFlows: {
+            type: Type.ARRAY,
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                id: { type: Type.STRING },
+                title: { type: Type.STRING },
+                description: { type: Type.STRING },
+                mermaidSyntax: { type: Type.STRING },
+                isPartialOrInferred: { type: Type.BOOLEAN },
+                steps: {
+                  type: Type.ARRAY,
+                  items: {
+                    type: Type.OBJECT,
+                    properties: {
+                      step: { type: Type.INTEGER },
+                      actor: { type: Type.STRING },
+                      action: { type: Type.STRING },
+                      target: { type: Type.STRING },
+                      fileReference: { type: Type.STRING },
+                    },
+                    required: ['step', 'actor', 'action', 'target'],
+                  },
+                },
+              },
+              required: ['id', 'title', 'description', 'mermaidSyntax', 'isPartialOrInferred', 'steps'],
+            },
+          },
+          architectureSummary: {
+            type: Type.OBJECT,
+            properties: {
+              overview: { type: Type.STRING },
+              keyPatterns: { type: Type.ARRAY, items: { type: Type.STRING } },
+              mermaidArchitecture: { type: Type.STRING },
+              layerBreakdown: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    layer: { type: Type.STRING },
+                    description: { type: Type.STRING },
+                    files: { type: Type.ARRAY, items: { type: Type.STRING } },
+                  },
+                  required: ['layer', 'description', 'files'],
+                },
+              },
+            },
+            required: ['overview', 'keyPatterns', 'mermaidArchitecture'],
+          },
+        },
+        required: ['fileExplanationsList', 'mindMap', 'executionFlows', 'architectureSummary'],
+      };
+
+      const response = await this.executeGenerateContent(client, targetModel, {
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json',
+          responseSchema,
         },
       });
 
-      let parsed: any;
-      try {
-        parsed = JSON.parse(response.text || '{}');
-      } catch {
-        console.warn('[GeminiService] Initial JSON parse failed.');
-      }
+      const fallbackData = this.generateFallbackAnalysis(repoName, files);
+      const parsed = this.parseAndNormalizeOutput(response.text, fallbackData);
 
       if (this.isValidGeminiOutput(parsed)) {
         return parsed;
       }
 
-      // Retry once with corrective instruction
-      console.warn('[GeminiService] Initial response failed schema validation. Retrying once...');
+      // Retry once if response was completely unparseable
       try {
         const retryResponse = await this.executeGenerateContent(client, targetModel, {
-          contents: `${prompt}\n\nCRITICAL FIX: The previous output was missing required properties. Output strictly valid JSON with non-empty mindMap.nodes and executionFlows.`,
+          contents: `${prompt}\n\nOutput strictly valid JSON conforming to the requested schema.`,
           config: {
             responseMimeType: 'application/json',
+            responseSchema,
           },
         });
-        const retryParsed = JSON.parse(retryResponse.text || '{}');
+        const retryParsed = this.parseAndNormalizeOutput(retryResponse.text, fallbackData);
         if (this.isValidGeminiOutput(retryParsed)) {
           return retryParsed;
         }
-      } catch (retryErr) {
-        console.warn('[GeminiService] Retry attempt failed:', retryErr);
+      } catch {
+        // Fall through to deterministic static analysis fallback
       }
 
-      console.warn('[GeminiService] Gemini synthesis failed validation. Falling back gracefully to static analysis.');
-      return this.generateFallbackAnalysis(repoName, files);
-    } catch (err) {
-      console.error('[GeminiService] AI generation failed, falling back to static generation:', err);
+      return fallbackData;
+    } catch {
       return this.generateFallbackAnalysis(repoName, files);
     }
+  }
+
+  private parseAndNormalizeOutput(
+    rawText: string | undefined,
+    fallback: {
+      fileExplanations: Record<string, Partial<AnalyzedFile>>;
+      mindMap: MindMapData;
+      executionFlows: ExecutionFlowItem[];
+      architectureSummary: ArchitectureSummary;
+    }
+  ) {
+    if (!rawText || typeof rawText !== 'string') return fallback;
+    let cleaned = rawText.trim();
+    cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+
+    let raw: any;
+    try {
+      raw = JSON.parse(cleaned);
+    } catch {
+      return fallback;
+    }
+
+    if (!raw || typeof raw !== 'object') return fallback;
+
+    const fileExplanations: Record<string, Partial<AnalyzedFile>> = {
+      ...fallback.fileExplanations,
+    };
+
+    if (Array.isArray(raw.fileExplanationsList)) {
+      for (const item of raw.fileExplanationsList) {
+        if (item && typeof item.path === 'string' && item.path.trim()) {
+          fileExplanations[item.path.trim()] = {
+            purpose: item.purpose || fileExplanations[item.path.trim()]?.purpose,
+            responsibilities: Array.isArray(item.responsibilities)
+              ? item.responsibilities
+              : fileExplanations[item.path.trim()]?.responsibilities,
+            keyFunctions: Array.isArray(item.keyFunctions)
+              ? item.keyFunctions
+              : fileExplanations[item.path.trim()]?.keyFunctions,
+            inputOutput:
+              item.inputOutput && typeof item.inputOutput === 'object'
+                ? item.inputOutput
+                : fileExplanations[item.path.trim()]?.inputOutput,
+          };
+        }
+      }
+    } else if (raw.fileExplanations && typeof raw.fileExplanations === 'object' && !Array.isArray(raw.fileExplanations)) {
+      for (const [filePath, exp] of Object.entries<any>(raw.fileExplanations)) {
+        if (exp && typeof exp === 'object') {
+          fileExplanations[filePath] = {
+            ...fileExplanations[filePath],
+            ...exp,
+          };
+        }
+      }
+    }
+
+    const mindMap: MindMapData =
+      raw.mindMap &&
+      typeof raw.mindMap === 'object' &&
+      Array.isArray(raw.mindMap.nodes) &&
+      raw.mindMap.nodes.length > 0
+        ? {
+            nodes: raw.mindMap.nodes,
+            edges: Array.isArray(raw.mindMap.edges) ? raw.mindMap.edges : fallback.mindMap.edges,
+          }
+        : fallback.mindMap;
+
+    const executionFlows: ExecutionFlowItem[] =
+      Array.isArray(raw.executionFlows) && raw.executionFlows.length > 0
+        ? raw.executionFlows
+        : fallback.executionFlows;
+
+    const architectureSummary: ArchitectureSummary =
+      raw.architectureSummary &&
+      typeof raw.architectureSummary === 'object' &&
+      typeof raw.architectureSummary.overview === 'string'
+        ? {
+            overview: raw.architectureSummary.overview,
+            keyPatterns: Array.isArray(raw.architectureSummary.keyPatterns)
+              ? raw.architectureSummary.keyPatterns
+              : fallback.architectureSummary.keyPatterns,
+            mermaidArchitecture:
+              typeof raw.architectureSummary.mermaidArchitecture === 'string' &&
+              raw.architectureSummary.mermaidArchitecture.trim()
+                ? raw.architectureSummary.mermaidArchitecture
+                : fallback.architectureSummary.mermaidArchitecture,
+            layerBreakdown: Array.isArray(raw.architectureSummary.layerBreakdown)
+              ? raw.architectureSummary.layerBreakdown
+              : fallback.architectureSummary.layerBreakdown,
+          }
+        : fallback.architectureSummary;
+
+    return {
+      fileExplanations,
+      mindMap,
+      executionFlows,
+      architectureSummary,
+    };
   }
 
   public isValidGeminiOutput(data: any): boolean {

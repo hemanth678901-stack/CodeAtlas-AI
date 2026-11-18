@@ -9,7 +9,7 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'High-speed flagship multimodal model for general text, code, and structured synthesis.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'batchGenerateContent'],
     isRecommended: true,
     source: 'catalog',
   },
@@ -19,8 +19,8 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     category: 'Gemini 4 Series (Flagship)',
     description: 'Advanced coding, software architecture synthesis, math, and complex STEM reasoning.',
     inputTokenLimit: 1048576,
-    outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    outputTokenLimit: 32768,
+    supportedActions: ['generateContent', 'countTokens', 'batchGenerateContent'],
     isRecommended: true,
     source: 'catalog',
   },
@@ -30,8 +30,8 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     category: 'Gemini 4 Series (Flagship)',
     description: 'Maximum reasoning depth for root-cause debugging, architectural design, and security auditing.',
     inputTokenLimit: 1048576,
-    outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    outputTokenLimit: 32768,
+    supportedActions: ['generateContent', 'countTokens', 'batchGenerateContent'],
     source: 'catalog',
   },
 
@@ -43,18 +43,48 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Default high-speed model optimized for repository architecture analysis and low-latency Q&A.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     isRecommended: true,
     source: 'catalog',
   },
   {
-    id: 'gemini-3.1-flash-lite',
-    displayName: 'Gemini 3.1 Flash Lite',
+    id: 'gemini-3.7-flash',
+    displayName: 'Gemini 3.7 Flash',
     category: 'Gemini 3 Series (Text & Code)',
-    description: 'Ultra-fast, lightweight model ideal for rapid repository scanning and high-throughput queries.',
+    description: 'High-throughput Flash model for fast code comprehension and structured JSON output.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
+    source: 'catalog',
+  },
+  {
+    id: 'gemini-3.6-flash',
+    displayName: 'Gemini 3.6 Flash',
+    category: 'Gemini 3 Series (Text & Code)',
+    description: 'Fast text and code generation model with 1M context window.',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 65536,
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
+    source: 'catalog',
+  },
+  {
+    id: 'gemini-3.5-flash',
+    displayName: 'Gemini 3.5 Flash',
+    category: 'Gemini 3 Series (Text & Code)',
+    description: 'Balanced speed and accuracy for multi-file repository analysis.',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 65536,
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
+    source: 'catalog',
+  },
+  {
+    id: 'gemini-3.5-flash-lite',
+    displayName: 'Gemini 3.5 Flash Lite',
+    category: 'Gemini 3 Series (Text & Code)',
+    description: 'Lightweight low-latency model for rapid codebase summaries.',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 65536,
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -64,17 +94,17 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Pro-grade reasoning model for deep codebase inspection and multi-file dependency synthesis.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
-    id: 'gemini-3-pro-preview',
-    displayName: 'Gemini 3 Pro Preview',
+    id: 'gemini-3.1-flash-lite',
+    displayName: 'Gemini 3.1 Flash Lite',
     category: 'Gemini 3 Series (Text & Code)',
-    description: 'High-precision reasoning model for complex software engineering and architectural tasks.',
+    description: 'Ultra-fast, lightweight model ideal for rapid repository scanning and high-throughput queries.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -84,7 +114,7 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Fast multimodal and code comprehension model with low latency.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
 
@@ -96,7 +126,7 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Long-context reasoning model for large multi-module codebases and technical documentation.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -106,7 +136,7 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Balanced speed and structured JSON generation for repository analysis.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
   {
@@ -116,128 +146,23 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
     description: 'Cost-efficient lightweight model for fast text and code summarization.',
     inputTokenLimit: 1048576,
     outputTokenLimit: 65536,
-    supportedActions: ['generateContent', 'streamGenerateContent'],
-    source: 'catalog',
-  },
-
-  // Live, Audio & Speech Models
-  {
-    id: 'gemini-3.8-live',
-    displayName: 'Gemini 3.8 Live',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time low-latency audio and video conversation model via the Gemini Live API.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.8-live-extended-thinking',
-    displayName: 'Gemini 3.8 Live Extended Thinking',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time voice conversation model with extended reasoning and multi-step tool use.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.5-transcribe',
-    displayName: 'Gemini 3.5 Transcribe',
-    category: 'Live, Audio & Speech Models',
-    description: 'Dedicated audio transcription model for pre-recorded or static audio.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.5-transcribe-live',
-    displayName: 'Gemini 3.5 Transcribe Live',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time streaming speech-to-text transcription via the Live API.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.5-live-translate-preview',
-    displayName: 'Gemini 3.5 Live Translate Preview',
-    category: 'Live, Audio & Speech Models',
-    description: 'Real-time bidirectional speech-to-speech translation model.',
-    supportedActions: ['bidiGenerateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.8-flash-lite-tts',
-    displayName: 'Gemini 3.8 Flash Lite TTS',
-    category: 'Live, Audio & Speech Models',
-    description: 'High-throughput single-speaker text-to-speech generation model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.8-flash-tts',
-    displayName: 'Gemini 3.8 Flash TTS',
-    category: 'Live, Audio & Speech Models',
-    description: 'Expressive multi-speaker text-to-speech and custom voice design model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-
-  // Multimodal, Image, Video & Music Models
-  {
-    id: 'gemini-omni-1.2-flash',
-    displayName: 'Gemini Omni 1.2 Flash',
-    category: 'Image, Video & Music Models',
-    description: 'Omni multimodal model for video generation, editing, and extension via Interactions API.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3.1-flash-lite-image',
-    displayName: 'Gemini 3.1 Flash Lite Image (Nano Banana)',
-    category: 'Image, Video & Music Models',
-    description: 'Fast image generation and editing model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-nano-banana-2.1',
-    displayName: 'Gemini Nano Banana 2.1',
-    category: 'Image, Video & Music Models',
-    description: 'High-resolution image generation and editing model (1K, 2K, 4K).',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'gemini-3-pro-image',
-    displayName: 'Gemini 3 Pro Image (Nano Banana Pro)',
-    category: 'Image, Video & Music Models',
-    description: 'Professional-grade image generation and visual synthesis model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'lyria-3-clip-preview',
-    displayName: 'Lyria 3 Clip Preview',
-    category: 'Image, Video & Music Models',
-    description: 'Short 30-second music clip generation model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-  {
-    id: 'lyria-3-pro-preview',
-    displayName: 'Lyria 3 Pro Preview',
-    category: 'Image, Video & Music Models',
-    description: 'Full-length studio music composition and generation model.',
-    supportedActions: ['generateContent'],
-    source: 'catalog',
-  },
-
-  // Embeddings Models
-  {
-    id: 'gemini-embedding-2',
-    displayName: 'Gemini Embedding 2',
-    category: 'Embedding Models',
-    description: 'High-dimensional text, code, and multimodal embedding model for semantic retrieval.',
-    supportedActions: ['embedContent'],
+    supportedActions: ['generateContent', 'countTokens', 'createCachedContent', 'batchGenerateContent'],
     source: 'catalog',
   },
 ];
+
+export function filterModelsWithAvailableTokens(models: GeminiModelOption[]): GeminiModelOption[] {
+  return models.filter(
+    m =>
+      typeof m.inputTokenLimit === 'number' &&
+      m.inputTokenLimit > 0 &&
+      typeof m.outputTokenLimit === 'number' &&
+      m.outputTokenLimit > 100 &&
+      (!Array.isArray(m.supportedActions) ||
+        m.supportedActions.length === 0 ||
+        m.supportedActions.includes('generateContent'))
+  );
+}
 
 export async function getAvailableModels(): Promise<{
   defaultModel: string;
@@ -246,15 +171,24 @@ export async function getAvailableModels(): Promise<{
   try {
     const response = await fetch('/api/models');
     if (!response.ok) {
-      return { defaultModel: 'gemini-3.8-flash', models: DEFAULT_GEMINI_MODELS };
+      return {
+        defaultModel: 'gemini-3.8-flash',
+        models: filterModelsWithAvailableTokens(DEFAULT_GEMINI_MODELS),
+      };
     }
     const data = await response.json();
+    const validModels = Array.isArray(data.models)
+      ? filterModelsWithAvailableTokens(data.models)
+      : [];
     return {
       defaultModel: data.defaultModel || 'gemini-3.8-flash',
-      models: Array.isArray(data.models) && data.models.length > 0 ? data.models : DEFAULT_GEMINI_MODELS,
+      models: validModels.length > 0 ? validModels : filterModelsWithAvailableTokens(DEFAULT_GEMINI_MODELS),
     };
   } catch {
-    return { defaultModel: 'gemini-3.8-flash', models: DEFAULT_GEMINI_MODELS };
+    return {
+      defaultModel: 'gemini-3.8-flash',
+      models: filterModelsWithAvailableTokens(DEFAULT_GEMINI_MODELS),
+    };
   }
 }
 
